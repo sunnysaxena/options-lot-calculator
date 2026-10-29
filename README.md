@@ -6,9 +6,11 @@ This version introduces a recommended feature-oriented folder structure and reus
 
 **Windows:** double-click `run-local.bat`, then open `http://localhost:8000`.
 
-**Linux/macOS:** run `./run-local.sh`, then open `http://localhost:8000`.
+**Linux/macOS:** run `./run-local.sh`, then open `http://localhost:8000`
 
 Python 3 is required to run the local static server. No build step or paid tools are required for the browser app.
+
+<img width="1919" height="1032" alt="Screenshot 2026-10-29 171358" src="https://github.com/user-attachments/assets/635a8733-7a9a-447b-a786-55d32cc872ef" />
 
 ## Project layout
 
