@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advanced Options Lot & Risk Calculator</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102344'/%3E%3Cpath d='M12 44h40' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' opacity='.65'/%3E%3Cpath d='M15 37l11-12 9 7 15-17' fill='none' stroke='%2342d392' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M39 15h11v11' fill='none' stroke='%2342d392' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="hero">
+    <div class="kicker">Trading calculator · India</div>
+    <h1>Options Lot Calculator</h1>
+    <p>Choose an index and estimate how many option lots your capital can afford. Switch to Advanced Calculator when you want to include stop-loss risk and estimated charges.</p>
+  </header>
+  <section class="appearance-panel" aria-label="Appearance customization">
+    <div class="appearance-head"><div><strong style="font-size:14px;color:var(--text)">Customize appearance</strong><div class="hint">Choose your own calculator colors or use a preset theme.</div></div><details><summary>Color settings</summary>
+      <div class="appearance-controls">
+        <label class="color-field" for="colorPrimary"><input type="color" id="colorPrimary" value="#1457d9">Accent color</label>
+        <label class="color-field" for="colorHeader"><input type="color" id="colorHeader" value="#102344">Header color</label>
+        <label class="color-field" for="colorBackground"><input type="color" id="colorBackground" value="#f3f6fb">Page background</label>
+        <label class="color-field" for="colorText"><input type="color" id="colorText" value="#172033">Text color</label>
+      </div>
+      <div class="appearance-actions"><button class="theme-btn" type="button" data-theme="blue">Classic Blue</button><button class="theme-btn" type="button" data-theme="green">Trading Green</button><button class="theme-btn" type="button" data-theme="purple">Modern Purple</button><button class="theme-btn" type="button" data-theme="dark">Dark Terminal</button><button class="theme-btn" type="button" id="resetAppearance">Reset colors</button></div>
+    </details></div>
+  </section>
+  <main class="wrap">
+    <div class="mode-switch" role="group" aria-label="Calculator mode">
+      <button class="mode-btn" id="simpleMode" type="button" aria-pressed="true">Simple Calculator</button>
+      <button class="mode-btn" id="advancedMode" type="button" aria-pressed="false">Advanced Calculator</button>
+      <button class="mode-btn" id="pnlMode" type="button" aria-pressed="false">Trade P&amp;L / Target / SL</button>
+      <button class="mode-btn" id="toolkitMode" type="button" aria-pressed="false">Trading Toolkit</button>
+    </div>
+    <p class="mode-description" id="modeDescription">Quickly estimate how many option lots fit your available capital, using premium and units per lot.</p>
+    <div class="layout">
+      <section class="panel" aria-labelledby="inputs-title">
+        <h2 id="inputs-title">Enter your trade details</h2>
+        <p class="sub" id="inputDescription">Choose an index, enter your capital and option premium, and check the selected lot size.</p>
+        <div class="fields">
+          <div class="field">
+            <label for="index">Index</label>
+            <select id="index"><option value="NIFTY" selected>Nifty 50</option><option value="BANKNIFTY">Nifty Bank</option><option value="MIDCPNIFTY">Midcap Nifty</option><option value="FINNIFTY">FINNIFTY</option><option value="SENSEX">Sensex</option></select>
+            <div class="hint">Select an index to fill its editable lot-size preset</div>
+          </div>
+          <div class="field">
+            <div class="label-row"><label for="capital">Available capital (₹)</label><button class="help-btn" type="button" data-help="capital" aria-label="Help: Available capital" title="Explain this field">?</button></div>
+            <div class="input-wrap"><span class="prefix">₹</span><input class="money" id="capital" type="number" min="0" step="100" value="50000" inputmode="decimal"></div>
+            <div class="hint">Total amount you want to use</div>
+          </div>
+          <div class="field">
+            <div class="label-row"><label for="premium">Option premium (₹)</label><button class="help-btn" type="button" data-help="premium" aria-label="Help: Option premium" title="Explain this field">?</button></div>
+            <div class="input-wrap"><span class="prefix">₹</span><input class="money" id="premium" type="number" min="0.05" step="0.05" value="100" inputmode="decimal"></div>
+            <div class="hint">Premium per unit, not per lot</div>
+          </div>
+          <div class="field advanced-only">
+            <div class="label-row"><label for="stoploss">Stop-loss premium (₹)</label><button class="help-btn" type="button" data-help="stoploss" aria-label="Help: Stop-loss premium" title="Explain this field">?</button></div>
+            <div class="input-wrap"><span class="prefix">₹</span><input class="money" id="stoploss" type="number" min="0" step="0.05" value="80" inputmode="decimal"></div>
+            <div class="hint">Exit premium if your stop is hit; must be below entry</div>
+          </div>
+          <div class="field">
+            <div class="label-row"><label for="lotsize">Units per lot</label><button class="help-btn" type="button" data-help="lotsize" aria-label="Help: Units per lot" title="Explain this field">?</button></div>
+            <input id="lotsize" type="number" min="1" step="1" value="65" inputmode="numeric">
+            <div class="hint">Editable preset; verify the current contract specification</div>
+          </div>
+          <div class="field advanced-only">
+            <div class="label-row"><label for="buffer">Capital kept aside (%)</label><button class="help-btn" type="button" data-help="buffer" aria-label="Help: Capital kept aside" title="Explain this field">?</button></div>
+            <div class="input-wrap"><input class="with-suffix" id="buffer" type="number" min="0" max="100" step="1" value="5" inputmode="decimal"><span class="suffix">%</span></div>
+            <div class="hint">For charges and a small cash cushion</div>
+          </div>
+          <div class="field advanced-only">
+            <div class="label-row"><label for="riskPct">Risk budget per trade (%)</label><button class="help-btn" type="button" data-help="riskPct" aria-label="Help: Risk budget per trade" title="Explain this field">?</button></div>
+            <div class="input-wrap"><input class="with-suffix" id="riskPct" type="number" min="0.1" max="100" step="0.1" value="1" inputmode="decimal"><span class="suffix">%</span></div>
+            <div class="hint">Percentage of total capital you're willing to risk</div>
+          </div>
+          <div class="field advanced-only">
+            <div class="label-row"><label for="brokerage">Brokerage per order (₹)</label><button class="help-btn" type="button" data-help="brokerage" aria-label="Help: Brokerage per order" title="Explain this field">?</button></div>
+            <div class="input-wrap"><span class="prefix">₹</span><input class="money" id="brokerage" type="number" min="0" step="1" value="20" inputmode="decimal"></div>
+            <div class="hint">Applied to both entry and exit orders</div>
+          </div>
+          <div class="field advanced-only">
+            <div class="label-row"><label for="otherPct">Other charges estimate (%)</label><button class="help-btn" type="button" data-help="otherPct" aria-label="Help: Other charges estimate" title="Explain this field">?</button></div>
+            <div class="input-wrap"><input class="with-suffix" id="otherPct" type="number" min="0" max="10" step="0.01" value="0.10" inputmode="decimal"><span class="suffix">%</span></div>
+            <div class="hint">Approximation on entry premium value; edit for your assumptions</div>
+          </div>
+        </div>
+        <div class="quick" aria-label="Quick premium presets">
+         
+          <button class="chip" type="button" data-premium="1">Premium ₹1</button>
+          <button class="chip" type="button" data-premium="2">Premium ₹2</button>
+          <button class="chip" type="button" data-premium="5">Premium ₹5</button>
+          <button class="chip" type="button" data-premium="10">Premium ₹10</button>
+          <button class="chip" type="button" data-premium="20">Premium ₹20</button>
+
+          <button class="chip" type="button" data-premium="15">Premium ₹15</button>
+          <button class="chip" type="button" data-premium="20">Premium ₹20</button>
+     
+          <button class="chip" type="button" data-premium="30">Premium ₹30</button>
+          <button class="chip" type="button" data-premium="50">Premium ₹50</button>
+          <button class="chip" type="button" data-premium="100">Premium ₹100</button>
+          <button class="chip" type="button" data-premium="150">Premium ₹150</button>
+          <button class="chip" type="button" data-premium="200">Premium ₹200</button>
+
+
+        </div>
+      </section>
+      <section class="panel toolkit-result" aria-labelledby="toolkit-title">
+        <h2 id="toolkit-title">Trading Calculator Toolkit</h2>
+        <p class="sub">Choose a tool from the menu. All calculations use your inputs and are estimates, not trading signals.</p>
+        <div class="toolkit-layout">
+          <div class="toolkit-inputs">
+            <h2>Calculator inputs</h2>
+            <div class="field"><label for="toolType">Choose calculator</label><select id="toolType"><option value="risk">Risk-based position sizing</option><option value="breakeven">Break-even premium</option><option value="trailing">Trailing stop-loss</option><option value="rr">Risk-to-reward</option><option value="daily">Daily P&amp;L limits</option><option value="journal">Trade journal &amp; statistics</option><option value="charges">Brokerage &amp; charges</option><option value="partial">Partial exit</option><option value="average">Averaging calculator</option><option value="compound">Compounding calculator</option><option value="recovery">Loss recovery calculator</option><option value="movement">Premium percentage movement</option></select></div>
+            <div class="fields" id="toolFields">
+              <div class="field"><label id="toolLabel1" for="tool1">Available capital (₹)</label><input id="tool1" type="number" min="0" step="1" value="50000"></div>
+              <div class="field"><label id="toolLabel2" for="tool2">Risk per trade (%)</label><input id="tool2" type="number" min="0" step="0.1" value="1"></div>
+              <div class="field"><label id="toolLabel3" for="tool3">Entry premium (₹)</label><input id="tool3" type="number" min="0" step="0.05" value="100"></div>
+              <div class="field"><label id="toolLabel4" for="tool4">Stop premium (₹)</label><input id="tool4" type="number" min="0" step="0.05" value="80"></div>
+              <div class="field"><label id="toolLabel5" for="tool5">Units per lot</label><input id="tool5" type="number" min="1" step="1" value="65"></div>
+            </div>
+            <div class="quick"><button class="chip" type="button" id="toolCalculate">Calculate</button><button class="chip" type="button" id="toolReset">Reset example</button></div>
+            <div class="hint" id="toolHint">Enter your own values. Outputs update as you type.</div>
+          </div>
+          <div class="toolkit-output">
+            <h2 id="toolOutputTitle">Risk-based position sizing</h2>
+            <div class="result" aria-live="polite"><div class="result-label" id="toolMainLabel">Maximum lots by planned risk</div><div class="big" id="toolMainValue">7 lots</div><div class="result-note" id="toolMainNote">Estimate based on your risk budget and stop distance.</div></div>
+            <div class="stat-list" id="toolStats"></div>
+            <div class="status" id="toolStatus">Check the assumptions before using the estimate.</div>
+          </div>
+        </div>
+        <div id="journalPanel" style="display:none;margin-top:22px">
+          <h2>Session trade journal</h2><p class="sub">Add completed trades manually. Entries stay in this page session and are not sent to a broker.</p>
+          <div class="fields"><div class="field"><label for="journalResult">Trade net P&amp;L (₹)</label><input id="journalResult" type="number" step="0.01" value="500"></div><div class="field"><label for="journalName">Trade note (optional)</label><input id="journalName" type="text" placeholder="e.g. Nifty CE setup"></div></div>
+          <div class="quick"><button class="chip" type="button" id="journalAdd">Add completed trade</button><button class="chip" type="button" id="journalClear">Clear session journal</button></div>
+          <div class="stat-list" id="journalStats"></div><div class="journal-wrap"><table class="journal-table"><thead><tr><th>#</th><th>Trade note</th><th>Net P&amp;L</th></tr></thead><tbody id="journalRows"></tbody></table></div>
+        </div>
+      </section>
+      <section class="panel simple-result" aria-labelledby="simple-result-title">
+        <h2 id="simple-result-title">Simple lot estimate</h2>
+        <p class="sub">Uses capital ÷ (option premium × units per lot). Charges and stop-loss risk are not included in Simple mode.</p>
+        <div class="result" aria-live="polite">
+          <div class="result-label">Lots affordable before charges</div>
+          <div class="big"><span id="simpleLotCount">0</span> <small id="simpleLotWord">lots</small></div>
+          <div class="result-note"><span id="simpleQuantity">0</span> units in total.</div>
+        </div>
+        <div class="stat-list">
+          <div class="stat"><span>Cost per lot</span><strong id="simpleCostPerLot">₹0</strong></div>
+          <div class="stat"><span>Estimated option cost</span><strong id="simpleTotalCost">₹0</strong></div>
+          <div class="stat"><span>Capital remaining before charges</span><strong id="simpleRemaining">₹0</strong></div>
+        </div>
+        <div class="status" id="simpleStatus"><strong>Estimate calculated.</strong> Verify the current lot size and premium.</div>
+      </section>
+      <section class="panel advanced-result" aria-labelledby="result-title">
+        <h2 id="result-title">Position & risk estimate</h2>
+        <p class="sub">Lot count is limited by both estimated buying budget and your stop-loss risk budget.</p>
+        <div class="result" aria-live="polite">
+          <div class="result-label">Estimated lots within both limits</div>
+          <div class="big"><span id="lotCount">7</span> <small id="lotWord">lots</small></div>
+        <div class="result-note"><span id="quantity">455</span> units in total at the entered premium. If this shows 0 lots, check whether your risk budget can cover the estimated loss for even one lot.</div>
+        </div>
+        <div class="stat-list">
+          <div class="stat"><span>Cost per lot</span><strong id="costPerLot">₹6,500</strong></div>
+          <div class="stat"><span>Lots affordable by capital</span><strong id="capitalLots">7</strong></div>
+          <div class="stat"><span>Lots allowed by risk budget</span><strong id="riskLots">3</strong></div>
+          <div class="stat"><span>Capital available for position</span><strong id="usableCapital">₹47,500</strong></div>
+          <div class="stat"><span>Estimated entry cost incl. brokerage</span><strong id="totalCost">₹0</strong></div>
+          <div class="stat"><span>Estimated round-trip charges</span><strong id="charges">₹0</strong></div>
+          <div class="stat"><span>Estimated loss if stop is hit</span><strong id="riskAmount">₹0</strong></div>
+          <div class="stat"><span>Risk budget</span><strong id="riskBudget">₹500</strong></div>
+          <div class="stat"><span>Funds remaining after entry</span><strong id="remaining">₹0</strong></div>
+        </div>
+        <div class="breakdown">
+          <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+          <div class="bar-caption"><span id="usedLabel">91% of usable capital used</span><span id="budgetLabel">Budget ₹50,000</span></div>
+        </div>
+        <div class="status" id="status"><strong>Estimate calculated.</strong> Check the risk and cost assumptions.</div>
+        <div class="worked-example" aria-label="Worked example explaining why the calculator can show zero lots">
+          <h3>Worked example: Why can ₹1,00,000 still show 0 lots?</h3>
+          <p><strong>Assumptions:</strong> Capital ₹1,00,000 · Entry premium ₹100 · Stop-loss premium ₹80 · Lot size 65 · Capital buffer 5% · Risk budget 1% · Brokerage ₹20 per order · Other charges estimate 0.10%.</p>
+          <p><strong>1. Buying budget:</strong> ₹1,00,000 − 5% buffer (₹5,000) = ₹95,000 available for the position.</p>
+          <p><strong>2. Entry cost for one lot:</strong> ₹100 × 65 = ₹6,500 premium value; add estimated entry brokerage and other charges (about ₹26.50) = <strong>about ₹6,526.50</strong>. Capital alone can cover multiple lots.</p>
+          <p><strong>3. Risk budget:</strong> ₹1,00,000 × 1% = <strong>₹1,000</strong> maximum planned risk for this trade.</p>
+          <p><strong>4. Estimated risk for one lot:</strong> (₹100 − ₹80) × 65 = ₹1,300 planned premium loss, plus about ₹51.70 estimated round-trip charges = <strong>about ₹1,351.70</strong>.</p>
+          <div class="example-answer">Result: 0 lots. One lot fits the capital budget, but its estimated stop-loss risk (₹1,351.70) is greater than the ₹1,000 risk budget. The calculator uses the stricter limit.</div>
+          <p>To explore the result, change the risk percentage or stop-loss distance only if it matches your trading plan. A wider risk budget permits more risk; it does not make the trade safer. Actual charges and stop-loss execution can differ.</p>
+        </div>
+      </section>
+      <section class="panel pnl-result" aria-labelledby="pnl-title">
+        <h2 id="pnl-title">Trade P&amp;L, target &amp; stop-loss</h2>
+        <p class="sub">Set up your trade on the left and see estimated target profit, stop-loss loss and trade metrics on the right.</p>
+        <div class="pnl-layout">
+        <div class="pnl-inputs">
+        <h2>Trade inputs</h2>
+        <p class="sub">Choose the index and enter your planned option premiums and position size.</p>
+        <div class="fields">
+          <div class="field"><label for="pnlIndex">Index</label><select id="pnlIndex"><option value="NIFTY" selected>Nifty 50</option><option value="BANKNIFTY">Nifty Bank</option><option value="MIDCPNIFTY">Midcap Nifty</option><option value="FINNIFTY">FINNIFTY</option><option value="SENSEX">Sensex</option></select><div class="hint">Select the index for this trade; verify current lot size.</div></div>
+          <div class="field"><label for="pnlEntry">Entry premium (₹)</label><input id="pnlEntry" type="number" min="0.05" step="0.05" value="100"></div>
+          <div class="field"><label for="pnlTarget">Target premium (₹)</label><input id="pnlTarget" type="number" min="0" step="0.05" value="130"></div>
+          <div class="field"><label for="pnlStop">Stop-loss premium (₹)</label><input id="pnlStop" type="number" min="0" step="0.05" value="80"></div>
+          <div class="field"><label for="pnlLotSize">Units per lot</label><input id="pnlLotSize" type="number" min="1" step="1" value="65"></div>
+          <div class="field"><label for="pnlLots">Number of lots</label><input id="pnlLots" type="number" min="1" step="1" value="1"></div>
+          <div class="field"><label for="pnlCharges">Estimated total charges (₹)</label><input id="pnlCharges" type="number" min="0" step="1" value="40"><div class="hint">Round-trip estimate for the whole trade; adjust to your broker.</div></div>
+        </div>
+        <div class="quick" aria-label="Quick target and stop presets">
+          <button class="chip" type="button" data-pnl-preset="conservative">Target +20%, SL −10%</button>
+          <button class="chip" type="button" data-pnl-preset="balanced">Target +30%, SL −20%</button>
+          <button class="chip" type="button" data-pnl-preset="wide">Target +50%, SL −25%</button></div>
+          <!--
+          <button class="chip" type="button" data-pnl-preset="wide100">Target +100%, SL −25%</button></div>
+          <button class="chip" type="button" data-pnl-preset="wide200">Target +200%, SL −25%</button></div>
+          <button class="chip" type="button" data-pnl-preset="wide500">Target +500%, SL −25%</button></div>
+          <button class="chip" type="button" data-pnl-preset="wide1000">Target +1000%, SL −25%</button></div> -->
+        </div>
+        <div class="pnl-output">
+        <h2>Trade outcome estimate</h2>
+        <p class="sub">Updates automatically as you change the inputs.</p>
+        <div class="result" style="margin-top:18px" aria-live="polite"><div class="result-label">Estimated net profit at target</div><div class="big" id="pnlTargetProfit">₹1,910</div><div class="result-note" id="pnlTargetNote">If target is reached, after estimated charges.</div></div>
+        <div class="stat-list">
+          <div class="stat"><span>Position quantity</span><strong id="pnlQuantity">65 units</strong></div>
+          <div class="stat"><span>Premium cost / entry value</span><strong id="pnlEntryCost">₹6,500</strong></div>
+          <div class="stat"><span>Gross profit at target</span><strong id="pnlGrossProfit">₹1,950</strong></div>
+          <div class="stat"><span>Net profit at target</span><strong id="pnlNetProfit">₹1,910</strong></div>
+          <div class="stat"><span>Gross loss at stop-loss</span><strong id="pnlGrossLoss">−₹1,300</strong></div>
+          <div class="stat"><span>Net P&amp;L if stop is hit</span><strong id="pnlNetLoss">−₹1,340</strong></div>
+          <div class="stat"><span>Risk : reward (gross)</span><strong id="pnlRR">1 : 1.50</strong></div>
+          <div class="stat"><span>Target return on premium cost</span><strong id="pnlReturn">29.38%</strong></div>
+        </div>
+        <div class="status" id="pnlStatus"><strong>Estimate calculated.</strong> Actual execution and charges may differ.</div>
+        </div>
+        </div>
+      </section>
+    </div>
+    <div class="warning"><strong>Important:</strong> All index lot sizes are editable presets, not live exchange data—verify the current contract specification before trading. Brokerage and other charges are simplified estimates, not a broker bill; taxes, STT, exchange/SEBI charges and slippage may differ. Stop-loss execution is not guaranteed at the entered price, so actual losses can be larger. Option buyers can lose the entire premium paid.</div>
+  </main>
+  <div class="modal-backdrop" id="helpBackdrop" role="presentation">
+    <section class="help-modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" aria-describedby="helpBody">
+      <div class="modal-head"><h2 id="helpTitle">Field information</h2><button class="modal-close" type="button" id="helpClose" aria-label="Close help window">×</button></div>
+      <div id="helpBody"></div>
+    </section>
+  </div>
+  <footer class="footer">Position size is the lower of the capital-affordable lots and stop-loss-risk-affordable lots. Estimated risk includes the premium difference from entry to stop plus estimated round-trip charges.<br>All figures are estimates. No broker connection or live market data is used.</footer>
+</div>
+<script src="js/app.js" defer></script>
+</body>
+</html>
