@@ -1,6 +1,8 @@
-# Options Lot Calculator — Modular v2
+# Options Lot Calculator — Modular v1
 
-This version introduces a recommended feature-oriented folder structure and reusable calculation modules while preserving the current working calculator in `js/legacy/app.js`.
+Your Options Lot Calculator is a personal options-trading calculation toolkit designed to help you plan position sizes, estimate profit and loss, calculate stop-loss risk, and evaluate trading performance before placing a trade.
+
+The project has evolved from a simple lot calculator into a modular, multi-calculator web application, with standalone applications for different platforms.
 
 ## Start the app
 
