@@ -9,28 +9,23 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Options Lot Calculator</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102344'/%3E%3Cpath d='M12 44h40' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' opacity='.65'/%3E%3Cpath d='M15 37l11-12 9 7 15-17' fill='none' stroke='%2342d392' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M39 15h11v11' fill='none' stroke='%2342d392' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="assets/app-icon.svg">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/android.css">
 </head>
 <body>
 <div class="app" id="app">
   <header class="hero">
-    <div class="kicker">TRADING TOOLKIT <span aria-hidden="true">·</span> INDIA</div>
+    <div class="brand-line"><img class="brand-icon" src="assets/app-icon.svg" alt=""><div class="kicker">TRADING TOOLKIT <span aria-hidden="true">·</span> INDIA</div></div>
     <h1>Options Lot Calculator</h1>
     <p>Plan your position size, understand stop-loss risk and estimate trade outcomes before placing an order.</p>
     <div class="hero-meta"><span class="live-dot"></span> Offline calculations <span class="hero-meta-divider">·</span> No broker connection</div>
   </header>
-  <section class="appearance-panel" aria-label="Appearance customization">
-    <div class="appearance-head"><div><strong style="font-size:14px;color:var(--text)">Customize appearance</strong><div class="hint">Choose your own calculator colors or use a preset theme.</div></div><details><summary>Color settings</summary>
-      <div class="appearance-controls">
-        <label class="color-field" for="colorPrimary"><input type="color" id="colorPrimary" value="#1457d9">Accent color</label>
-        <label class="color-field" for="colorHeader"><input type="color" id="colorHeader" value="#102344">Header color</label>
-        <label class="color-field" for="colorBackground"><input type="color" id="colorBackground" value="#f3f6fb">Page background</label>
-        <label class="color-field" for="colorText"><input type="color" id="colorText" value="#172033">Text color</label>
-      </div>
-      <div class="appearance-actions"><button class="theme-btn" type="button" data-theme="blue">Classic Blue</button><button class="theme-btn" type="button" data-theme="green">Trading Green</button><button class="theme-btn" type="button" data-theme="purple">Modern Purple</button><button class="theme-btn" type="button" data-theme="dark">Dark Terminal</button><button class="theme-btn" type="button" id="resetAppearance">Reset colors</button></div>
-    </details></div>
+  <section class="appearance-panel theme-panel" aria-label="Theme setting">
+    <div class="appearance-head">
+      <div><strong style="font-size:14px;color:var(--text)">Theme</strong><div class="hint">Your app uses the Trading Green theme.</div></div>
+      <button class="theme-btn active" type="button" id="tradingGreenTheme" data-theme="green" aria-pressed="true">Trading Green Theme <span aria-hidden="true">✓</span></button>
+    </div>
   </section>
   <main class="wrap">
     <div class="mode-switch" role="group" aria-label="Calculator mode">

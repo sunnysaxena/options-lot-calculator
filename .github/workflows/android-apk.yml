@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - "feat/android-capacitor-app"
+      - "feat/trading-green-money-icon"
     paths:
       - "index.html"
       - "css/**"
@@ -13,6 +14,7 @@ on:
       - "package.json"
       - "capacitor.config.ts"
       - "scripts/**"
+      - "assets/**"
       - ".github/workflows/android-apk.yml"
 
 permissions:
@@ -38,6 +40,8 @@ jobs:
         run: npx cap add android
       - name: Sync Capacitor
         run: npx cap sync android
+      - name: Apply money-themed Android launcher icon
+        run: node scripts/apply-android-icon.mjs
       - name: Set up Java
         uses: actions/setup-java@v4
         with:

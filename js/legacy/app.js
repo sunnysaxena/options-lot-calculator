@@ -10,31 +10,29 @@
   const advancedMode = document.getElementById('advancedMode');
   const pnlMode = document.getElementById('pnlMode');
   const toolkitMode = document.getElementById('toolkitMode');
-  const appearanceDefaults = {primary:'#1457d9',header:'#102344',background:'#f3f6fb',text:'#172033'};
-  const appearanceInputs = {primary:document.getElementById('colorPrimary'),header:document.getElementById('colorHeader'),background:document.getElementById('colorBackground'),text:document.getElementById('colorText')};
-  function applyAppearance(colors) {
-    const root=document.documentElement;
-    const dark=colors.background.toLowerCase()==='#0b1118';
-    root.style.setProperty('--site-primary',colors.primary);
-    root.style.setProperty('--site-secondary',colors.header);
-    root.style.setProperty('--site-background',colors.background);
-    root.style.setProperty('--site-on-background',colors.text);
-    root.style.setProperty('--text',colors.text);
-    root.style.setProperty('--surface',dark?'#17212d':'#ffffff');
-    root.style.setProperty('--surface-soft',dark?'#202d3b':'#f7f9fd');
-    root.style.setProperty('--muted',dark?'#c0ccda':'#65728a');
-    root.style.setProperty('--border',dark?'#526174':'#dce3ef');
-    root.style.setProperty('--good',dark?'#72edb5':'#087f5b');
-    root.style.setProperty('--bad',dark?'#ffaaa3':'#b42318');
-    root.style.setProperty('--site-on-primary',dark?'#07130f':'#ffffff');
-    root.style.setProperty('--site-on-secondary',dark?'#f4f8ff':'#ffffff');
-    Object.keys(appearanceInputs).forEach(k=>appearanceInputs[k].value=colors[k]);
+  const tradingGreenTheme = { primary:'#55d6a3', header:'#0b1220', background:'#080e19', text:'#e8eef7' };
+  function applyTradingGreenTheme() {
+    const root = document.documentElement;
+    root.style.setProperty('--site-primary', tradingGreenTheme.primary);
+    root.style.setProperty('--site-secondary', tradingGreenTheme.header);
+    root.style.setProperty('--site-background', tradingGreenTheme.background);
+    root.style.setProperty('--site-on-background', tradingGreenTheme.text);
+    root.style.setProperty('--text', tradingGreenTheme.text);
+    root.style.setProperty('--surface', '#111c2c');
+    root.style.setProperty('--surface-soft', '#172438');
+    root.style.setProperty('--muted', '#91a1b7');
+    root.style.setProperty('--border', '#26364b');
+    root.style.setProperty('--good', '#5ce0a8');
+    root.style.setProperty('--bad', '#ff7f88');
+    root.style.setProperty('--site-on-primary', '#071a16');
+    root.style.setProperty('--site-on-secondary', '#f4f7fb');
+    const themeButton = document.getElementById('tradingGreenTheme');
+    if (themeButton) themeButton.setAttribute('aria-pressed', 'true');
   }
-  Object.entries(appearanceInputs).forEach(([key,input])=>input.addEventListener('input',()=>{const colors=Object.fromEntries(Object.entries(appearanceInputs).map(([k,v])=>[k,v.value]));applyAppearance(colors);try{localStorage.setItem('optionsCalculatorAppearance',JSON.stringify(colors));}catch(e){}}));
-  const themes={blue:appearanceDefaults,green:{primary:'#16805d',header:'#12382f',background:'#f1f8f4',text:'#172b25'},purple:{primary:'#7047d1',header:'#2d2050',background:'#f6f3fc',text:'#241d35'},dark:{primary:'#42d392',header:'#101a24',background:'#0b1118',text:'#e7f0fa'}};
-  document.querySelectorAll('[data-theme]').forEach(btn=>btn.addEventListener('click',()=>{applyAppearance(themes[btn.dataset.theme]);try{localStorage.setItem('optionsCalculatorAppearance',JSON.stringify(themes[btn.dataset.theme]));}catch(e){}}));
-  document.getElementById('resetAppearance').addEventListener('click',()=>{applyAppearance(appearanceDefaults);try{localStorage.removeItem('optionsCalculatorAppearance');}catch(e){}});
-  try{const saved=JSON.parse(localStorage.getItem('optionsCalculatorAppearance')||'null');if(saved&&Object.keys(appearanceDefaults).every(k=>/^#[0-9a-f]{6}$/i.test(saved[k]||'')))applyAppearance(saved);}catch(e){}
+  document.getElementById('tradingGreenTheme')?.addEventListener('click', applyTradingGreenTheme);
+  // Remove any custom colours saved by older versions; this release has one fixed theme.
+  try { localStorage.removeItem('optionsCalculatorAppearance'); } catch (e) {}
+  applyTradingGreenTheme();
   const modeDescription = document.getElementById('modeDescription');
   function setMode(mode) {
     const simple = mode === 'simple';
