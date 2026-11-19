@@ -12,7 +12,7 @@ Python 3 is required for the local static server.
 
 ## Android app (Capacitor 8)
 
-The Android app wraps the existing HTML/CSS/JavaScript calculator in a native Capacitor shell. The calculator's existing calculation engine and browser functionality are retained. The app uses a single dark Trading Green theme and a rupee-and-coins launcher icon.
+The Android app wraps the existing HTML/CSS/JavaScript calculator in a native Capacitor shell. The calculator's existing calculation engine and browser functionality are retained. The app uses a single dark Trading Green theme and a stacked option-lots launcher icon.
 
 Requirements: Node.js 22+, Android Studio 2025.2.1+ and an Android SDK (API 24+). Android Studio includes the supported JDK. See [docs/ANDROID.md](docs/ANDROID.md) for complete instructions.
 
@@ -53,7 +53,7 @@ npm test
 - `index.html` — app markup
 - `css/styles.css` — original styles
 - `css/android.css` — dark, mobile-first Android presentation and safe-area layout
-- `assets/app-icon.svg` — rupee, coin-stack and growth-arrow brand icon
+- `assets/app-icon.svg` — stacked option-lots and upward-arrow brand icon
 - `scripts/apply-android-icon.mjs` — creates adaptive and density-specific Android launcher icons
 - `js/app.js` — compatibility loader
 - `js/legacy/app.js` — existing working UI behavior
