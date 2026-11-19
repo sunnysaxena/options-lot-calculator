@@ -7,6 +7,7 @@ on:
       - main
       - "feat/android-capacitor-app"
       - "feat/trading-green-money-icon"
+      - "feat/compact-header-lot-brand"
     paths:
       - "index.html"
       - "css/**"
