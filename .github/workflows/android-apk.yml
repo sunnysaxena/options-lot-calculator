@@ -11,7 +11,7 @@ on:
       - "css/**"
       - "js/**"
       - "package.json"
-      - "capacitor.config.json"
+      - "capacitor.config.ts"
       - "scripts/**"
       - ".github/workflows/android-apk.yml"
 
@@ -28,7 +28,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
       - name: Install dependencies
         run: npm install
       - name: Run calculation tests
