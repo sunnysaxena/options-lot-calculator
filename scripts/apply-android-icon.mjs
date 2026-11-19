@@ -7,12 +7,11 @@ const foreground = `<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp" android:height="108dp"
     android:viewportWidth="108" android:viewportHeight="108">
-    <path android:fillColor="#55D6A3" android:pathData="M18,22h55v7h-55z M18,36h55v7h-55z"/>
-    <path android:fillColor="#55D6A3" android:pathData="M32,29c18,0 29,8 29,21 0,12 -10,20 -26,20h-7l29,25h-15L13,68v-7h23c10,0 16,-4 16,-11 0,-8 -6,-13 -17,-13h-17v-8z"/>
-    <path android:fillColor="#F6C65B" android:pathData="M62,66c0,-5 9,-9 20,-9s20,4 20,9v5c0,5 -9,9 -20,9s-20,-4 -20,-9z"/>
-    <path android:fillColor="#D99528" android:pathData="M62,72c0,5 9,9 20,9s20,-4 20,-9v5c0,5 -9,9 -20,9s-20,-4 -20,-9z"/>
-    <path android:fillColor="#FFE18B" android:pathData="M62,66c0,-5 9,-9 20,-9s20,4 20,9 -9,9 -20,9 -20,-4 -20,-9z"/>
-    <path android:fillColor="#55D6A3" android:pathData="M10,91l27,-13 19,-12 17,-15 -10,0 0,-7 25,0 0,24 -7,0 0,-11 -20,18 -20,13 -27,12z"/>
+    <path android:fillColor="#173A3B" android:pathData="M17,46 Q17,40 23,40 H70 Q76,40 76,46 V80 Q76,86 70,86 H23 Q17,86 17,80 Z" android:strokeColor="#55D6A3" android:strokeWidth="2"/>
+    <path android:fillColor="#1C4B46" android:pathData="M23,39 Q23,33 29,33 H76 Q82,33 82,39 V73 Q82,79 76,79 H29 Q23,79 23,73 Z" android:strokeColor="#68E6B2" android:strokeWidth="2"/>
+    <path android:fillColor="#55D6A3" android:pathData="M29,32 Q29,26 35,26 H82 Q88,26 88,32 V66 Q88,72 82,72 H35 Q29,72 29,66 Z" android:strokeColor="#B0FFE0" android:strokeWidth="2"/>
+    <path android:fillColor="#103B34" android:pathData="M38,39h38v4h-38z M38,49h26v4h-26z M38,59h17v4h-17z"/>
+    <path android:fillColor="#F3D98A" android:pathData="M79,28l11,-12 11,12h-6v17h-10v-17z"/>
 </vector>`;
 const background = `<?xml version="1.0" encoding="utf-8"?>
 <resources><color name="ic_launcher_background">#0B1220</color></resources>`;
@@ -26,12 +25,11 @@ const fallback = `<?xml version="1.0" encoding="utf-8"?>
     android:width="108dp" android:height="108dp"
     android:viewportWidth="108" android:viewportHeight="108">
     <path android:fillColor="#0B1220" android:pathData="M0,0h108v108h-108z"/>
-    <path android:fillColor="#55D6A3" android:pathData="M18,22h55v7h-55z M18,36h55v7h-55z"/>
-    <path android:fillColor="#55D6A3" android:pathData="M32,29c18,0 29,8 29,21 0,12 -10,20 -26,20h-7l29,25h-15L13,68v-7h23c10,0 16,-4 16,-11 0,-8 -6,-13 -17,-13h-17v-8z"/>
-    <path android:fillColor="#F6C65B" android:pathData="M62,66c0,-5 9,-9 20,-9s20,4 20,9v5c0,5 -9,9 -20,9s-20,-4 -20,-9z"/>
-    <path android:fillColor="#D99528" android:pathData="M62,72c0,5 9,9 20,9s20,-4 20,-9v5c0,5 -9,9 -20,9s-20,-4 -20,-9z"/>
-    <path android:fillColor="#FFE18B" android:pathData="M62,66c0,-5 9,-9 20,-9s20,4 20,9 -9,9 -20,9 -20,-4 -20,-9z"/>
-    <path android:fillColor="#55D6A3" android:pathData="M10,91l27,-13 19,-12 17,-15 -10,0 0,-7 25,0 0,24 -7,0 0,-11 -20,18 -20,13 -27,12z"/>
+    <path android:fillColor="#173A3B" android:pathData="M17,46 Q17,40 23,40 H70 Q76,40 76,46 V80 Q76,86 70,86 H23 Q17,86 17,80 Z" android:strokeColor="#55D6A3" android:strokeWidth="2"/>
+    <path android:fillColor="#1C4B46" android:pathData="M23,39 Q23,33 29,33 H76 Q82,33 82,39 V73 Q82,79 76,79 H29 Q23,79 23,73 Z" android:strokeColor="#68E6B2" android:strokeWidth="2"/>
+    <path android:fillColor="#55D6A3" android:pathData="M29,32 Q29,26 35,26 H82 Q88,26 88,32 V66 Q88,72 82,72 H35 Q29,72 29,66 Z" android:strokeColor="#B0FFE0" android:strokeWidth="2"/>
+    <path android:fillColor="#103B34" android:pathData="M38,39h38v4h-38z M38,49h26v4h-26z M38,59h17v4h-17z"/>
+    <path android:fillColor="#F3D98A" android:pathData="M79,28l11,-12 11,12h-6v17h-10v-17z"/>
 </vector>`;
 
 await mkdir(resolve(res, "drawable"), { recursive: true });
@@ -61,4 +59,4 @@ for (const [density, size] of Object.entries(densitySizes)) {
   await writeFile(resolve(folder, "ic_launcher.png"), png);
   await writeFile(resolve(folder, "ic_launcher_round.png"), png);
 }
-console.log("Applied rupee-and-coins Android launcher icons for adaptive and legacy Android launchers.");
+console.log("Applied stacked-lots Android launcher icons for adaptive and legacy Android launchers.");
