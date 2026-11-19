@@ -1,6 +1,6 @@
 # Android app (Capacitor)
 
-The Android app reuses the existing HTML/CSS/JavaScript calculator and keeps its existing calculation implementation as the source of truth.
+The Android app reuses the existing HTML/CSS/JavaScript calculator and keeps its existing calculation implementation as the source of truth. It ships with a single dark Trading Green theme and a rupee-and-coins launcher icon.
 
 ## Requirements
 
@@ -28,6 +28,8 @@ npm install
 npm run android:add   # only once per checkout
 npm run android:build
 ```
+
+The build script generates adaptive launcher icons and legacy density icons from `assets/app-icon.svg` before compiling.
 
 The debug APK is written to:
 
