@@ -1,0 +1,6 @@
+{
+  "appId": "com.sunnysaxena.optionslotcalculator",
+  "appName": "Options Lot Calculator",
+  "webDir": "www",
+  "server": { "androidScheme": "https" }
+}
