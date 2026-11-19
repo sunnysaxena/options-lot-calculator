@@ -1,4 +1,5 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import sharp from "sharp";
 import { resolve } from "node:path";
 
 const res = resolve(process.cwd(), "android/app/src/main/res");
@@ -50,4 +51,14 @@ if (!manifest.includes('android:roundIcon=')) {
   manifest = manifest.replace('android:icon="@mipmap/ic_launcher"', 'android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round"');
   await writeFile(manifestPath, manifest);
 }
-console.log("Applied rupee-and-coins Android launcher icons.");
+const svgPath = resolve(process.cwd(), "assets/app-icon.svg");
+const svgBytes = await readFile(svgPath);
+const densitySizes = { mdpi: 48, hdpi: 72, xhdpi: 96, xxhdpi: 144, xxxhdpi: 192 };
+for (const [density, size] of Object.entries(densitySizes)) {
+  const folder = resolve(res, `mipmap-${density}`);
+  await mkdir(folder, { recursive: true });
+  const png = await sharp(svgBytes).resize(size, size, { fit: "contain" }).png().toBuffer();
+  await writeFile(resolve(folder, "ic_launcher.png"), png);
+  await writeFile(resolve(folder, "ic_launcher_round.png"), png);
+}
+console.log("Applied rupee-and-coins Android launcher icons for adaptive and legacy Android launchers.");
