@@ -7,6 +7,7 @@ on:
       - main
       - "feat/android-capacitor-app"
       - "feat/trading-green-money-icon"
+      - "feat/compact-header-lot-brand"
     paths:
       - "index.html"
       - "css/**"
@@ -40,7 +41,7 @@ jobs:
         run: npx cap add android
       - name: Sync Capacitor
         run: npx cap sync android
-      - name: Apply money-themed Android launcher icon
+      - name: Apply stacked-lots Android launcher icon
         run: node scripts/apply-android-icon.mjs
       - name: Set up Java
         uses: actions/setup-java@v4

@@ -10,27 +10,23 @@
   const advancedMode = document.getElementById('advancedMode');
   const pnlMode = document.getElementById('pnlMode');
   const toolkitMode = document.getElementById('toolkitMode');
-  const tradingGreenTheme = { primary:'#55d6a3', header:'#0b1220', background:'#080e19', text:'#e8eef7' };
   function applyTradingGreenTheme() {
     const root = document.documentElement;
-    root.style.setProperty('--site-primary', tradingGreenTheme.primary);
-    root.style.setProperty('--site-secondary', tradingGreenTheme.header);
-    root.style.setProperty('--site-background', tradingGreenTheme.background);
-    root.style.setProperty('--site-on-background', tradingGreenTheme.text);
-    root.style.setProperty('--text', tradingGreenTheme.text);
-    root.style.setProperty('--surface', '#111c2c');
-    root.style.setProperty('--surface-soft', '#172438');
-    root.style.setProperty('--muted', '#91a1b7');
-    root.style.setProperty('--border', '#26364b');
-    root.style.setProperty('--good', '#5ce0a8');
-    root.style.setProperty('--bad', '#ff7f88');
-    root.style.setProperty('--site-on-primary', '#071a16');
-    root.style.setProperty('--site-on-secondary', '#f4f7fb');
-    const themeButton = document.getElementById('tradingGreenTheme');
-    if (themeButton) themeButton.setAttribute('aria-pressed', 'true');
+    root.style.colorScheme = 'light';
+    root.style.setProperty('--site-primary', '#159b68');
+    root.style.setProperty('--site-secondary', '#ffffff');
+    root.style.setProperty('--site-background', '#f4f8f5');
+    root.style.setProperty('--site-on-background', '#183126');
+    root.style.setProperty('--text', '#183126');
+    root.style.setProperty('--surface', '#ffffff');
+    root.style.setProperty('--surface-soft', '#edf5ef');
+    root.style.setProperty('--muted', '#667b70');
+    root.style.setProperty('--border', '#d7e5da');
+    root.style.setProperty('--good', '#16865b');
+    root.style.setProperty('--bad', '#c2414b');
+    root.style.setProperty('--site-on-primary', '#ffffff');
+    root.style.setProperty('--site-on-secondary', '#17352a');
   }
-  document.getElementById('tradingGreenTheme')?.addEventListener('click', applyTradingGreenTheme);
-  // Remove any custom colours saved by older versions; this release has one fixed theme.
   try { localStorage.removeItem('optionsCalculatorAppearance'); } catch (e) {}
   applyTradingGreenTheme();
   const modeDescription = document.getElementById('modeDescription');
